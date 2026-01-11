@@ -4,6 +4,12 @@
 
 Fine-tune an open-weights LLM to behave as an empathetic, best-friend chatbot using multi-objective supervised fine-tuning with auxiliary classification heads for emotion recognition and support strategy prediction.
 
+### 🤗 Trained Model
+
+**HuggingFace**: [https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan](https://huggingface.co/https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan)
+
+**GitHub**: [Someet-Git/vibeai_assignment](https://github.com/Someet-Git/vibeai_assignment)
+
 ## ⚡ Why Unsloth?
 
 | Feature | Standard Training | With Unsloth |

@@ -3,8 +3,9 @@
 
 # Model Configuration
 model:
-  name: "Qwen/Qwen2.5-7B-Instruct"
-  hidden_size: 3584  # Qwen2.5-7B hidden dimension
+  name: "unsloth/Qwen3-8B-bnb-4bit"
+  hf_model_id: "https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan"  # Trained model on HuggingFace
+  hidden_size: 4096  # Qwen3-8B hidden dimension
   max_seq_length: 1024
   
 # Quantization (4-bit QLoRA)

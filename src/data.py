@@ -463,7 +463,7 @@ if __name__ == "__main__":
     # Test data loading
     from transformers import AutoTokenizer
     
-    tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-7B-Instruct")
+    tokenizer = AutoTokenizer.from_pretrained("unsloth/Qwen3-8B-bnb-4bit")
     tokenizer.pad_token = tokenizer.eos_token
     
     train_loader, val_loader = create_dataloaders(

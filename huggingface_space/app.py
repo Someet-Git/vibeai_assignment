@@ -14,7 +14,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStream
 # ============================================================
 # Configuration - UPDATE THESE!
 # ============================================================
-MODEL_ID = "Someet24/empathetic-qwen3-8b-11-01"  # <-- Replace with your HF model ID
+MODEL_ID = "https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan"  # <-- Replace with your HF model ID
 
 SYSTEM_PROMPT = """You are a warm, supportive, and empathetic friend. You listen carefully to what people share and respond with genuine care and understanding.
 
@@ -229,8 +229,8 @@ with gr.Blocks(css=CSS, title="Empathetic Friend", theme=gr.themes.Soft()) as de
     gr.Markdown("""
     ---
     <center>
-    Made with 💚 | <a href="https://github.com/YOUR_USERNAME">GitHub</a> | 
-    Model: <a href="https://huggingface.co/YOUR_USERNAME/empathetic-qwen3-8b">empathetic-qwen3-8b</a>
+    Made with 💚 | <a href="https://github.com/Someet-Git">GitHub</a> | 
+    Model: <a href="https://huggingface.co/https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan">empathetic-qwen3-8b</a>
     </center>
     """)
 

@@ -98,7 +98,7 @@ class EmpatheticLLM(nn.Module):
     Multi-task Empathetic Language Model.
     
     Architecture:
-    - Base: Qwen2.5-7B-Instruct (4-bit quantized)
+    - Base: Qwen3-8B (4-bit quantized via Unsloth)
     - Adapters: LoRA on attention projections
     - Auxiliary Heads:
         - Emotion classification (27 classes)
@@ -107,7 +107,7 @@ class EmpatheticLLM(nn.Module):
     
     def __init__(
         self,
-        model_name: str = "Qwen/Qwen2.5-7B-Instruct",
+        model_name: str = "unsloth/Qwen3-8B-bnb-4bit",
         config_path: Optional[str] = None,
         device: str = "cuda"
     ):
@@ -427,7 +427,7 @@ class EmpatheticLLM(nn.Module):
         
         # Determine base model
         if base_model_name is None:
-            base_model_name = "Qwen/Qwen2.5-7B-Instruct"
+            base_model_name = "unsloth/Qwen3-8B-bnb-4bit"
         
         # Create instance (will load base model)
         model = cls(model_name=base_model_name, device=device)
@@ -475,7 +475,7 @@ if __name__ == "__main__":
     
     # This would require GPU - just show structure
     print("\nModel architecture:")
-    print("- Base: Qwen2.5-7B-Instruct (4-bit quantized)")
+    print("- Base: Qwen3-8B (4-bit quantized via Unsloth)")
     print("- LoRA: r=16, alpha=32")
     print("- Emotion Head: Linear(hidden, 512) -> ReLU -> Linear(512, 27)")
     print("- Strategy Head: Linear(hidden, 256) -> ReLU -> Linear(256, 8)")

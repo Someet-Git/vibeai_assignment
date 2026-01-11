@@ -10,7 +10,7 @@ pinned: false
 license: apache-2.0
 suggested_hardware: t4-small
 models:
-  - YOUR_USERNAME/empathetic-qwen3-8b
+  - https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan
 tags:
   - empathy
   - mental-health
@@ -32,7 +32,7 @@ A warm, supportive AI companion trained to listen with genuine care and understa
 
 ## Model
 
-This Space uses [empathetic-qwen3-8b](https://huggingface.co/YOUR_USERNAME/empathetic-qwen3-8b), a Qwen3-8B model fine-tuned on:
+This Space uses [empathetic-qwen3-8b-11-01](https://huggingface.co/https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan), a Qwen3-8B model fine-tuned on:
 
 - EmpatheticDialogues
 - ESConv (Emotional Support Conversations)

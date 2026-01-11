@@ -13,22 +13,22 @@ This guide will help you deploy your empathetic chatbot to Hugging Face Spaces w
 
 ## Step 1: Update the Model ID
 
-Edit `app.py` and replace `YOUR_USERNAME` with your actual HuggingFace username:
+The `app.py` is already configured with the correct model:
 
 ```python
-MODEL_ID = "YOUR_USERNAME/empathetic-qwen3-8b"  # <-- Change this!
+MODEL_ID = "https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan"
 ```
 
-Also update the footer in `app.py`:
+Links in footer:
 ```python
-Made with 💚 | <a href="https://github.com/YOUR_USERNAME">GitHub</a> | 
-Model: <a href="https://huggingface.co/YOUR_USERNAME/empathetic-qwen3-8b">empathetic-qwen3-8b</a>
+Made with 💚 | <a href="https://github.com/Someet-Git">GitHub</a> | 
+Model: <a href="https://huggingface.co/https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan">empathetic-qwen3-8b</a>
 ```
 
-And update `README.md`:
+Model reference in `README.md`:
 ```yaml
 models:
-  - YOUR_USERNAME/empathetic-qwen3-8b
+  - https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan
 ```
 
 ---
@@ -63,7 +63,7 @@ models:
 
 ```bash
 # Clone the Space
-git clone https://huggingface.co/spaces/YOUR_USERNAME/empathetic-friend
+git clone https://huggingface.co/spaces/Someet24/empathetic-friend
 cd empathetic-friend
 
 # Copy your files
@@ -79,7 +79,7 @@ git push
 
 ## Step 4: Wait for Build
 
-1. Go to your Space: `https://huggingface.co/spaces/YOUR_USERNAME/empathetic-friend`
+1. Go to your Space: `https://huggingface.co/spaces/Someet24/empathetic-friend`
 2. Watch the **Logs** tab for build progress
 3. Wait 5-10 minutes for the model to download and load
 
@@ -91,7 +91,7 @@ Once the status shows **Running**, your chatbot is live!
 
 Share your Space URL with anyone:
 ```
-https://huggingface.co/spaces/YOUR_USERNAME/empathetic-friend
+https://huggingface.co/spaces/Someet24/empathetic-friend
 ```
 
 ---
@@ -133,7 +133,7 @@ Add your Space to any website with an iframe:
 
 ```html
 <iframe
-    src="https://YOUR_USERNAME-empathetic-friend.hf.space"
+    src="https://Someet24-empathetic-friend.hf.space"
     frameborder="0"
     width="100%"
     height="700"
