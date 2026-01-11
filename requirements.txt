@@ -1,0 +1,29 @@
+# Empathetic LLM Fine-Tuning Requirements (Unsloth)
+# Install with: pip install -r requirements.txt
+
+# Unsloth - 2x faster training, 60% less memory
+# For Colab, use: pip install unsloth
+# For latest: pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+unsloth
+
+# Core ML Framework (included with Unsloth)
+torch>=2.2.0
+transformers>=4.40.0
+datasets>=2.18.0
+
+# Evaluation & Metrics
+scipy>=1.11.0
+scikit-learn>=1.3.0
+numpy>=1.24.0
+
+# Visualization
+matplotlib>=3.7.0
+tqdm>=4.65.0
+
+# Configuration
+pyyaml>=6.0
+
+# Notebook support (optional)
+jupyter>=1.0.0
+ipywidgets>=8.0.0
+

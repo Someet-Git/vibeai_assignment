@@ -1,0 +1,72 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Model files (too large for GitHub)
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.h5
+trained_model/
+checkpoints/
+merged_model/
+
+# But keep the zip if small enough
+# !trained_model/empathetic_model.zip
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.cursor/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+wandb/
+runs/
+
+# Secrets
+.env
+*.env
+secrets.yaml
+
+# Temporary
+tmp/
+temp/
+*.tmp
+
+# Large data files
+*.csv
+*.json
+!configs/*.json
+!**/training_config.json
+
+# HuggingFace cache
+.cache/
+~/.cache/huggingface/
+
+# Files with secrets (don't commit!)
+notebooks/final_train_and_eval_10_01_26.ipynb
+

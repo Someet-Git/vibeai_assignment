@@ -1,0 +1,21 @@
+# Empathetic Chat Webapp Requirements
+# ====================================
+
+# Web Framework
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+
+# Model Loading
+torch>=2.0.0
+transformers>=4.40.0
+accelerate>=0.27.0
+
+# For LoRA adapter loading
+peft>=0.10.0
+
+# Optional: Unsloth for faster inference (recommended)
+# unsloth
+
+# Optional: bitsandbytes for 4-bit quantization
+bitsandbytes>=0.43.0
+

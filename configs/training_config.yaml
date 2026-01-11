@@ -1,0 +1,146 @@
+# Empathetic LLM Fine-Tuning Configuration
+# Vibe AI Assignment - Multi-Task SFT with Auxiliary Heads
+
+# Model Configuration
+model:
+  name: "Qwen/Qwen2.5-7B-Instruct"
+  hidden_size: 3584  # Qwen2.5-7B hidden dimension
+  max_seq_length: 1024
+  
+# Quantization (4-bit QLoRA)
+quantization:
+  load_in_4bit: true
+  bnb_4bit_compute_dtype: "bfloat16"
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_use_double_quant: true
+
+# LoRA Configuration
+lora:
+  r: 16
+  lora_alpha: 32
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+  lora_dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+# Auxiliary Heads Configuration
+heads:
+  emotion:
+    num_classes: 27  # GoEmotions simplified
+    hidden_dim: 512
+    dropout: 0.1
+  strategy:
+    num_classes: 8  # ESConv strategies
+    hidden_dim: 256
+    dropout: 0.1
+
+# Loss Weights (λ values)
+loss_weights:
+  lambda_lm: 1.0       # Primary language modeling loss
+  lambda_emo: 0.2      # Emotion classification loss
+  lambda_strat: 0.2    # Strategy classification loss
+  lambda_safe: 0.1     # Safety KL divergence loss
+
+# Training Hyperparameters
+training:
+  learning_rate: 2.0e-4
+  batch_size: 4
+  gradient_accumulation_steps: 8  # Effective batch size = 32
+  num_epochs: 2
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  lr_scheduler_type: "cosine"
+  
+  # Checkpointing
+  save_steps: 500
+  eval_steps: 250
+  logging_steps: 50
+  save_total_limit: 2
+
+# Data Configuration
+data:
+  # Temperature-based sampling
+  temperature_alpha: 0.5  # α in p_i = n_i^α / Σn_j^α
+  
+  # Dataset splits
+  train_split: 0.9
+  val_split: 0.1
+  
+  # Preprocessing
+  max_context_turns: 5
+  
+# Emotion Labels (GoEmotions Simplified - 27 classes)
+emotion_labels:
+  - admiration
+  - amusement
+  - anger
+  - annoyance
+  - approval
+  - caring
+  - confusion
+  - curiosity
+  - desire
+  - disappointment
+  - disapproval
+  - disgust
+  - embarrassment
+  - excitement
+  - fear
+  - gratitude
+  - grief
+  - joy
+  - love
+  - nervousness
+  - optimism
+  - pride
+  - realization
+  - relief
+  - remorse
+  - sadness
+  - surprise
+
+# Strategy Labels (ESConv - 8 strategies)
+strategy_labels:
+  - Question
+  - Restatement or Paraphrasing
+  - Reflection of Feelings
+  - Self-disclosure
+  - Affirmation and Reassurance
+  - Providing Suggestions
+  - Information
+  - Others
+
+# Safety Configuration
+safety:
+  system_prompt: |
+    You are a supportive, empathetic friend. Follow these safety guidelines:
+    1. Never provide medical, legal, or professional advice
+    2. For crisis situations, always suggest professional help
+    3. Never encourage self-harm or harm to others
+    4. Validate feelings while redirecting harmful thoughts
+    5. Provide crisis hotline numbers when appropriate
+  
+  crisis_resources:
+    - "National Suicide Prevention Lifeline: 988 (US)"
+    - "Crisis Text Line: Text HOME to 741741"
+    - "International Association for Suicide Prevention: https://www.iasp.info/resources/Crisis_Centres/"
+
+# Evaluation
+evaluation:
+  eq_bench_version: 3
+  num_qualitative_examples: 5
+  
+# Hardware (Colab)
+hardware:
+  device: "cuda"
+  mixed_precision: "bf16"
+  gradient_checkpointing: true
+
