@@ -1,10 +1,6 @@
 # Empathetic LLM Fine-Tuning Report
 
 ## Vibe AI Assignment - Technical Write-up
-
-**Author**: [Your Name]  
-**Date**: January 2026
-
 ---
 
 ## 1. Approach
