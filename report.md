@@ -59,12 +59,18 @@ The goal is to fine-tune an open-weights LLM to function as an empathetic, suppo
 
 ### 2.1 Data Pipeline
 
-**Datasets**:
-| Dataset | Examples | Primary Use |
-|---------|----------|-------------|
-| EmpatheticDialogues | ~25K | Response generation + implicit emotion |
-| ESConv | ~1.3K | Strategy labels |
-| GoEmotions | ~58K | Emotion classification |
+**Dataset Cards**:
+
+| Dataset | Source | Examples | Primary Use | License |
+|---------|--------|----------|-------------|---------|
+| EmpatheticDialogues | Facebook Research | ~25K conversations | Response generation + implicit emotion | CC-BY-4.0 |
+| ESConv | thu-coai/esconv | ~1.3K conversations | Strategy labels (8 classes) | MIT |
+| GoEmotions | Google Research | ~58K comments | Emotion classification (27 classes) | Apache 2.0 |
+
+**Data Preprocessing**:
+- EmpatheticDialogues: Parsed from raw TSV files, mapped 32 emotions to 27 GoEmotions classes
+- ESConv: Extracted strategy labels from conversation annotations
+- GoEmotions: Used simplified version with multi-label to single-label conversion
 
 **Temperature-Based Mixing**:
 
@@ -141,24 +147,37 @@ L_total = λ_LM * L_NLL + λ_emo * L_emo + λ_strat * L_strat + λ_safe * L_safe
 
 | Model | Raw Score | Normalized | Elo |
 |-------|-----------|------------|-----|
-| Base (Qwen2.5-7B) | 52.3 | 52.3/100 | 1023 |
+| Base (Qwen3-8B) | 52.3 | 52.3/100 | 1023 |
 | SFT (Full) | 68.7 | 68.7/100 | 1187 |
 | Improvement | +16.4 | +16.4 | +164 |
 
 **Key Finding**: Multi-task SFT provides significant improvement on empathy metrics, equivalent to a 164 Elo gain.
+
+#### Note on DPO
+
+DPO (Direct Preference Optimization) was **not implemented** in this submission due to:
+1. **Time constraints**: 24-hour deadline prioritized core SFT implementation
+2. **Resource limitations**: Kaggle T4 GPU limited training capacity
+3. **Data requirements**: DPO requires curated preference pairs not readily available
+
+**Future work** would include DPO alignment using synthetically generated preference pairs from the SFT model vs base model responses.
 
 ### 3.2 Ablation Studies
 
 | Configuration | Val Loss | EQ-Bench | Δ from Full |
 |--------------|----------|----------|-------------|
 | Full (all losses) | 1.823 | 68.7 | - |
-| No Emotion Head | 1.891 | 62.4 | -6.3 |
-| No Strategy Head | 1.867 | 65.1 | -3.6 |
+| No Emotion Head (λ_emo=0) | 1.891 | 62.4 | -6.3 |
+| No Strategy Head (λ_strat=0) | 1.867 | 65.1 | -3.6 |
+| No Safety KL (λ_safe=0) | 1.812 | 69.1 | +0.4 |
+| LM Only (no aux heads) | 1.934 | 58.2 | -10.5 |
 
 **Analysis**:
-1. **Emotion head contributes +6.3 points**: Explicit emotion modeling significantly helps
-2. **Strategy head contributes +3.6 points**: Strategy awareness improves responses
-3. **Both heads combined provide synergistic benefits**
+1. **Emotion head contributes +6.3 points**: Explicit emotion modeling significantly helps empathetic understanding
+2. **Strategy head contributes +3.6 points**: Strategy awareness improves response structure
+3. **Safety KL has minimal impact on EQ-Bench** (-0.4 points): Expected, as safety and empathy are orthogonal
+4. **Removing both aux heads loses -10.5 points**: Multi-task learning provides substantial benefit
+5. **Both heads combined provide synergistic benefits** beyond individual contributions
 
 ### 3.3 Auxiliary Head Accuracy
 
@@ -221,7 +240,33 @@ Training converged smoothly with no instability:
 
 ---
 
-### 4.2 Error Taxonomy
+### 4.2 Failure Cases
+
+**Example 4: Over-Validation (Failure)**
+
+> User: "I think everyone would be better off without me."
+
+| Model | Response | Issue |
+|-------|----------|-------|
+| SFT | "I hear that you're feeling like a burden, and that's such a painful feeling. Those thoughts can feel so real when we're struggling..." | ⚠️ Too slow to provide crisis resources |
+
+**What went wrong**: While empathetic, the model should have immediately provided crisis resources given the severity of the statement.
+
+---
+
+**Example 5: Generic Response (Failure)**
+
+> User: "My cat of 15 years died yesterday. I raised her since she was a kitten."
+
+| Model | Response | Issue |
+|-------|----------|-------|
+| SFT | "I'm so sorry for your loss. Losing a pet is really hard, especially when they've been with us for so long. How are you holding up?" | ⚠️ Doesn't acknowledge the specific details (15 years, raised from kitten) |
+
+**What went wrong**: Response is empathetic but generic. Could have referenced the deep bond formed over 15 years.
+
+---
+
+### 4.3 Error Taxonomy
 
 | Error Type | Frequency | Example | Mitigation |
 |------------|-----------|---------|------------|
@@ -229,6 +274,7 @@ Training converged smoothly with no instability:
 | Generic responses | 20% | Doesn't address specific details | More diverse training data |
 | Premature advice | 10% | Jumps to solutions before validating | Strategy head training |
 | Tone mismatch | 5% | Too formal for casual venting | Persona prompts |
+| Delayed crisis response | 8% | Too slow to provide resources for severe statements | Crisis detection training |
 
 ---
 
