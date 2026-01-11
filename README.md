@@ -209,12 +209,3 @@ See `report.md` for the full technical write-up including:
 5. [ESConv](https://github.com/thu-coai/Emotional-Support-Conversation)
 6. [GoEmotions](https://github.com/google-research/google-research/tree/master/goemotions)
 7. [QLoRA](https://arxiv.org/abs/2305.14314) - Efficient Fine-tuning
-
-## 📜 License
-
-This project is for educational and evaluation purposes only.
-
----
-
-*Vibe AI Assignment - Empathetic LLM Fine-Tuning*
-
