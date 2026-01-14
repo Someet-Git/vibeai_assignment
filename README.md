@@ -8,7 +8,6 @@ Fine-tune an open-weights LLM to behave as an empathetic, best-friend chatbot us
 
 **HuggingFace**: [https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan](https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan)
 
-**GitHub**: [Someet-Git/vibeai_assignment](https://github.com/Someet-Git/vibeai_assignment)
 
 ## ⚡ Why Unsloth?
 
