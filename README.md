@@ -6,7 +6,7 @@ Fine-tune an open-weights LLM to behave as an empathetic, best-friend chatbot us
 
 ### 🤗 Trained Model
 
-**HuggingFace**: [https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan](https://huggingface.co/https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan)
+**HuggingFace**: [https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan](https://huggingface.co/Someet24/empathetic-qwen3-8b-Jan)
 
 **GitHub**: [Someet-Git/vibeai_assignment](https://github.com/Someet-Git/vibeai_assignment)
 
